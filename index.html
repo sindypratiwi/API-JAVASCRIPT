@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Data Provinsi dan Kota</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            width: 50%;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .title {
+            text-align: center;
+        }
+        .dropdown {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">API Data Provinsi dan Kota</h1>
+        <label for="provinsi">Pilih Provinsi:</label>
+        <select id="provinsi" class="dropdown" onchange="loadCities()">
+            <option value="">Pilih Provinsi</option>
+        </select>
+        <label for="kota">Pilih Kota:</label>
+        <select id="kota" class="dropdown">
+            <option value="">Pilih Kota</option>
+        </select>
+    </div>
+
+    <script>
+        // Data provinsi dan kota
+        const data = {
+            "Jakarta": ["Jakarta Pusat", "Jakarta Utara", "Jakarta Barat", "Jakarta Timur", "Jakarta Selatan"],
+            "Jawa Barat": ["Bandung", "Bekasi", "Bogor", "Depok", "Cirebon"],
+            "Jawa Tengah": ["Semarang", "Surakarta", "Magelang", "Tegal", "Pekalongan"],
+            "Jawa Timur": ["Surabaya", "Malang", "Kediri", "Blitar", "Madiun"],
+            "Bali": ["Denpasar", "Singaraja", "Tabanan", "Gianyar", "Bangli"],
+            "Aceh": ["Banda Aceh","Sabang","Langsa","Lhokseumawe","Subulussam"],
+            "Sumatera Utara": ["Medan","Binjai","Pematangsiantar","Tanjungbalai","Tebing Tinggi"],
+            "Sumatera Barat": ["Padang","Bukittinggi","Padang Panjang","Pariaman","Payakumbuh"],
+            "Riau":["Pekanbaru","Dumai"],
+            "Kepulauan Riau":["Tanjung Pinang","Batam"],
+            "Jambi":["Jambi"],
+            "Bengkulu":["Bengkulu"],
+            "Sumatera Selatan":["Palembang","Lubuklinggau","Pagar Alam","Prabumulih"],
+            "Bangka Belitung":["Pangkal Pinang"],
+            "Lampung":["Bandar Lampung","Metro"],
+            "DI Yogyakarta":["Yogyakarta"],
+            "Kalimantan Barat":["Pontianak","Singkawang"],
+            "Kalimantan Tengah": ["Palangka Raya"],
+            "Kalimantan Selatan":["Banjarmasin", "Banjarbaru"],
+            "Kalimantan Timur":["Samarinda","Balikpapan,Bontang"],
+            "Kalimantan Utara":["Tarakan"],
+            "Sulawesi Utara":["Manado","Bitung","Tomohon","Kotamobagu"],
+            "Sulawesi Tengah":["Palu"],
+            "Sulawesi Selatan":["Makassar","Parepare","Palopo"],
+            "Sulawesi  Barat":["Mamuju"],
+            "Sulawesi Tenggara":["Kendari","Bau-Bau"],
+            "Gorontalo":["Gorontalo"],
+            "Nusa Tenggara Barat":["Mataram","Bima"],
+            "Nusa Tenggara Timur":["Kupang"],
+            "Maluku":["Ambon","Tual"],
+            "Maluku Utara":["Ternate","Tidore Kepulauan"],
+            "Papua Barat":["Manokwari","Sorong"],
+            "Papua":["Jayapura"]
+
+        };
+
+        // Load provinsi on page load
+        window.onload = function() {
+            loadProvinces();
+        }
+
+        // Load provinces into the dropdown
+        function loadProvinces() {
+            const provinsiSelect = document.getElementById("provinsi");
+            for (let provinsi in data) {
+                let option = document.createElement("option");
+                option.value = provinsi;
+                option.text = provinsi;
+                provinsiSelect.appendChild(option);
+            }
+        }
+
+        // Load cities based on selected province
+        function loadCities() {
+            const provinsiSelect = document.getElementById("provinsi");
+            const kotaSelect = document.getElementById("kota");
+            const selectedProvinsi = provinsiSelect.value;
+
+            // Clear previous cities
+            kotaSelect.innerHTML = "<option value=''>Pilih Kota</option>";
+
+            if (selectedProvinsi) {
+                const cities = data[selectedProvinsi];
+                for (let city of cities) {
+                    let option = document.createElement("option");
+                    option.value = city;
+                    option.text = city;
+                    kotaSelect.appendChild(option);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
+
